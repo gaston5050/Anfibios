@@ -1,0 +1,70 @@
+Proyecto amphibians paso a paso
+
+¡De una, Orlando! Vamos a armar esa "Hoja de Ruta" definitiva. Este resumen te va a quedar como una guía de referencia para cualquier app que hagas de acá en adelante.
+
+Acá tenés los 5 pasos que llevamos, con su código, ubicación y nombre pro:
+
+1. Data Class (El Modelo)
+Ubicación: data/model
+
+Nombre: Anfibio.kt
+
+Kotlin
+@Serializable
+data class Anfibio(
+    val name: String,
+    val type: String,
+    val description: String,
+    @SerialName("img_src")
+    val imgSrc: String
+)
+2. API Service (La Interfaz técnica)
+Ubicación: data/network
+
+Nombre: AnfibiosApiService.kt
+
+Kotlin
+interface AnfibiosApiService {
+    @GET("amphibians") // El endpoint real de la API
+    suspend fun getAnfibios(): List<Anfibio>
+}
+3. Repository (La Interfaz de negocio)
+Ubicación: data/repository
+
+Nombre: AnfibiosRepository.kt
+
+Kotlin
+interface AnfibiosRepository {
+    suspend fun getAnfibios(): List<Anfibio>
+}
+4. Repository Implementation (La clase real)
+Ubicación: data/repository
+
+Nombre: NetworkAnfibiosRepository.kt
+
+Kotlin
+class NetworkAnfibiosRepository(
+    private val anfibiosApiService: AnfibiosApiService
+) : AnfibiosRepository {
+
+    override suspend fun getAnfibios(): List<Anfibio> {
+        return anfibiosApiService.getAnfibios()
+    }
+}
+5. Configuración de Retrofit (El Motor)
+Ubicación: data (o en un paquete nuevo llamado di o container)
+
+Nombre: AppContainer.kt (o un objeto Singleton)
+
+Este es el paso que nos toca ahora. Es donde definís la BASE_URL y construís el objeto que inyecta todo.
+
+Kotlin
+// Esto es lo que vamos a construir ahora:
+val retrofit = Retrofit.Builder()
+    .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+    .baseUrl(BASE_URL)
+    .build()
+
+val retrofitService: AnfibiosApiService by lazy {
+    retrofit.create(AnfibiosApiService::class.java)
+}
