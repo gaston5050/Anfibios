@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.anfibios.data.model.Anfibio
 
-@Composable
+
 @Composable
 fun HomeScreen(
     anfibiosUiState: AnfibiosUiState,
@@ -26,36 +26,28 @@ fun HomeScreen(
 ){
     // El when mapea el estado de la lógica a la vista
     when (anfibiosUiState) {
-     //   is AnfibiosUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())//
-
-        is AnfibiosUiState.Loading -> LoadingScreen(
-            anfibios = anfibiosUiState.anfibios
-
-        )
-
-        is AnfibiosUiState.Error -> ErrorScreen(
-            retryAction = retryAction,
-            modifier = modifier.fillMaxSize()
-        )
+        is AnfibiosUiState.Loading -> LoadingScreen()
+        is AnfibiosUiState.Exito -> Text(text="Acá van a ir los datos despues")
+        is AnfibiosUiState.Error -> Text(text = "¡Acá va a ir el error después!", modifier = modifier)
     }
 }
 
 
 @Composable
 fun LoadingScreen(
-    anfibios: List<Anfibio>
+    //anfibios: List<Anfibio>
 ){
     Column(
         modifier = Modifier
-            .fillMaxSize()           // Ocupa toda la pantalla
-            .wrapContentSize(Alignment.Center), // Centra el contenido
+            .fillMaxSize()
+            .wrapContentSize(Alignment.Center),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "¡Hola! Este texto está centrado",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
+            text = "Cargando anfibios...",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Center
         )
     }
