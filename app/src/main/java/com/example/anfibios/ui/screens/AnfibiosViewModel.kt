@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.anfibios.AnfibiosApplication
 import com.example.anfibios.data.model.Anfibio
 import com.example.anfibios.data.repository.AnfibiosRepositorio
 import kotlinx.coroutines.launch
@@ -43,6 +44,17 @@ class AnfibiosViewModel(private val anfibiosRepositorio: AnfibiosRepositorio) : 
             }
 
 
+        }
+    }
+
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as AnfibiosApplication)
+                val anfibiosRepositorio = application.container.anfibiosRepositorio
+                AnfibiosViewModel(anfibiosRepositorio = anfibiosRepositorio)
+            }
         }
     }
 
