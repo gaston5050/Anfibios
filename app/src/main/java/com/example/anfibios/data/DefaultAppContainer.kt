@@ -14,7 +14,7 @@ interface AppContainer{
 
 class DefaultAppContainer : AppContainer {
     // La URL base de tu API (siempre debe terminar en /)
-    private val baseUrl = "https://android-kotlin-fun-mars-server.appspot.com/amphibians"
+    private val baseUrl = "https://android-kotlin-fun-mars-server.appspot.com/"
 
     // CONFIGURO RETROFIT CON   EL CONVERSOR DE SERIALIZACION JSON -> KOTLIN OBJ
 

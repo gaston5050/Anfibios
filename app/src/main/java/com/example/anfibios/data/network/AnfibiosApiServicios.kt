@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface AnfibiosApiServicios {
 
-    @GET("anfibios")
+    @GET("amphibians")
     suspend fun getAnfibios(): List<Anfibio>
 
 

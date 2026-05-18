@@ -14,37 +14,71 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.anfibios.data.model.Anfibio
 
-@Composable
+
 @Composable
 fun HomeScreen(
     anfibiosUiState: AnfibiosUiState,
-    retryAction: () -> Unit,
+   // retryAction: () -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ){
     // El when mapea el estado de la lógica a la vista
     when (anfibiosUiState) {
-     //   is AnfibiosUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())//
+       is AnfibiosUiState.Exito -> ExitoScreen(anfibiosUiState.anfibios)//
 
-        is AnfibiosUiState.Loading -> LoadingScreen(
-            anfibios = anfibiosUiState.anfibios
+        is AnfibiosUiState.Loading -> LoadingScreen( )
 
+        is AnfibiosUiState.Error -> ErrorScreen( )
+    }
+}
+
+
+@Composable
+fun ExitoScreen(anfibios: List<Anfibio>) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()           // Ocupa toda la pantalla
+            .wrapContentSize(Alignment.Center), // Centra el contenido
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "¡Hola! Este es el primer anfibio: ${anfibios[0].name}",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
         )
-
-        is AnfibiosUiState.Error -> ErrorScreen(
-            retryAction = retryAction,
-            modifier = modifier.fillMaxSize()
+        AsyncImage(
+            model =  "https://cdn.britannica.com/85/4685-004-093BB6DE/American-toad.jpg",//anfibios[0].imgSrc,
+            contentDescription =null,
         )
     }
 }
 
 
 @Composable
-fun LoadingScreen(
-    anfibios: List<Anfibio>
-){
+fun ErrorScreen() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()           // Ocupa toda la pantalla
+            .wrapContentSize(Alignment.Center), // Centra el contenido
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "¡Hola! Esto es un error!",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Composable
+fun LoadingScreen(){
     Column(
         modifier = Modifier
             .fillMaxSize()           // Ocupa toda la pantalla
