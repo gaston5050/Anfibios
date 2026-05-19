@@ -33,19 +33,20 @@ fun TarjetaAnfibios(anfibio: Anfibio){
                 containerColor = MaterialTheme.colorScheme.surface,
             ),
             modifier =  Modifier
-                .padding(10.dp)
+                .padding(15.dp)
                 .wrapContentHeight(),
             border = BorderStroke(1.dp, Color.Black),
 
         ) {
             Column( modifier = Modifier
                 .wrapContentHeight()
-                .padding(10.dp)) {
+                .padding(15.dp)) {
                 Text(
                     text = anfibio.name,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                 )
+                Spacer(modifier = Modifier.size(5.dp))
                 Text(
                     text = anfibio.type,
                     fontStyle = FontStyle.Italic,
@@ -56,7 +57,7 @@ fun TarjetaAnfibios(anfibio: Anfibio){
                     anfibio.imgSrc,
                     null,
                     modifier = Modifier
-                        .padding(10.dp),
+                        .padding(0.dp),
                         contentScale = androidx.compose.ui.layout.ContentScale.FillWidth // <-- ESTO la obliga a estirarse horizontalmente
 
                 )
@@ -75,7 +76,7 @@ fun TarjetaAnfibios(anfibio: Anfibio){
 @Preview
 @Composable
 fun TarjetaPreview (){
-    var anfibio: Anfibio = Anfibio("Sapon", "Reptil", "Si es uno normal","https://cdn.britannica.com/85/4685-004-093BB6DE/American-toad.jpg")
+    var anfibio: Anfibio = Anfibio("Sapo", "Reptil", "Si es uno normal","https://cdn.britannica.com/85/4685-004-093BB6DE/American-toad.jpg")
 
     TarjetaAnfibios(anfibio)
 }
